@@ -1,0 +1,133 @@
+body {
+    font-family: "Courier New", Courier, monospace;
+    color: blue;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+  
+  .container {
+    margin: 50px auto;
+    width: 80%;
+    max-width: 600px;
+  }
+
+  button {
+    font-family: 'Courier New', Courier, monospace;
+    color: blue;
+    cursor: pointer;
+    border-color: blue;
+    background-color: white;
+  }
+  
+  .landing button {
+    font-size: 80px;
+    padding: 25px 50px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    border-radius: 80px;
+    border-width: 3px;
+    border-style: solid;
+    transition: transform 0.3s;
+  }
+
+    .landing button:hover {
+        color: red; 
+    }
+
+    h1 {
+        font-family: 'Courier New', Courier, monospace;
+        color: blue;
+        cursor: pointer;
+        border-color: blue;
+        background-color: white;
+        font-weight: normal;     
+    }
+      
+    .trolley-header h1 {
+        font-size: 50px;
+        margin: 100px 0 auto;
+      }
+  
+  .trolley-container {
+    display: flex;
+    justify-content: center;
+    margin-top: -100px;
+    max-width: 80%;
+  }
+  
+  .trolley {
+    margin: 0;
+    /* scale: 0.75; */
+    padding: 5px;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  .trolley:hover {
+    transform: scale(1.1);
+    opacity: 0.75;
+  }
+
+  #trolley-blue {
+    position: fixed; 
+    top: 10%;
+    right: 40%;
+}
+
+    #trolley-yellow {
+        position: fixed; 
+        top: 20%;
+        left: 40%;
+    }
+  
+    .question-container {
+        font-size: 25px;
+        background: #fff;
+        padding: 20px;
+    }
+
+    .question-container  {
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .response-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+    }
+
+    .response-img {
+        width: 100px;
+        height: 100px;
+        margin: 0 20px;
+        cursor: pointer;
+    }
+
+    .response-img:hover {
+        transform: scale(1.1);
+        opacity: 0.75;
+    }
+    
+    .response {
+        margin: 0 40px;
+        cursor: pointer;
+    }
+
+    .results-container {
+        display: block;
+        font-size: 25px;
+    }
+
+    .results-container #resultPercentage {
+        font-size: 50px;
+        font-weight: bold;
+        margin: 20px 0;
+    }

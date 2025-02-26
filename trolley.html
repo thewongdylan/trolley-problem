@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trolley Page</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div class='header trolley-header'>
+    <h1>Choose Your Trolley</h1>
+  </div>
+  <div class="container trolley-container">
+    <img src="images/trolley-blue.png" alt="Trolley Blue" class="trolley" id="trolley-blue" />
+    <img src="images/trolley-yellow.png" alt="Trolley Yellow" class="trolley" id="trolley-yellow" />
+    <!-- <img src="images/supermarket.png" alt="Supermarket" class="supermarket" id="supermarket"/> -->
+  </div>
+  <script>
+    // When a trolley icon is clicked, add a brief animation then navigate to the question page.
+    document.querySelectorAll('.trolley').forEach(function(trolley) {
+      trolley.addEventListener('click', function() {
+        trolley.style.transform = 'scale(1.2)';
+        setTimeout(function() {
+          trolley.style.transform = 'scale(1)';
+          window.location.href = 'question.html';
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>

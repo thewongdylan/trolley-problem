@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Question Page</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div class="container question-container">
+    <p id="questionText"></p>
+    <div class="container response-container">
+      <div class="response" id="response-a">
+          <img src="images/cereal.png" alt="Cereal" class="cereal response-img" id="cereal" />
+          <p id="cereal-text">Yes</p>
+      </div>
+      <div class="response" id="response-b">
+          <img src="images/indomie.png" alt="Indomie" class="indomie response-img" id="indomie" />
+          <p id="indomie-text">No</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Array of moral dilemma questions.
+    const questions = [
+      "Should you sacrifice one life to save five?",
+      "Is it ethical to lie to protect someone's feelings?",
+      "Would you steal to feed a starving child?",
+      "Should euthanasia be legalized?"
+    ];
+
+    // Select a random question.
+    const randomIndex = Math.floor(Math.random() * questions.length);
+    const selectedQuestion = questions[randomIndex];
+    document.getElementById('questionText').textContent = selectedQuestion;
+
+    // Save the current question to localStorage (to be used on the results page).
+    localStorage.setItem('selectedQuestion', selectedQuestion);
+
+    // --- SheetDB Integration ---
+    const sheetDBEndpoint = 'https://sheetdb.io/api/v1/03wai2kknq2nf';
+
+    // Function to submit the answer to Google Sheets via SheetDB.
+    function submitAnswer(question, answer) {
+      const data = {
+        data: [
+          {
+            question: question,
+            answer: answer
+          }
+        ]
+      };
+
+      return fetch(sheetDBEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(response => response.json());
+    }
+    // --- End SheetDB Integration ---
+
+    document.getElementById('cereal').addEventListener('click', function() {
+      submitAnswer(selectedQuestion, 'cereal').then(() => {
+        window.location.href = 'results.html';
+      }).catch(error => {
+        console.error('Error submitting answer:', error);
+      });
+    });
+
+    document.getElementById('indomie').addEventListener('click', function() {
+      submitAnswer(selectedQuestion, 'indomie').then(() => {
+        window.location.href = 'results.html';
+      }).catch(error => {
+        console.error('Error submitting answer:', error);
+      });
+    });
+  </script>
+</body>
+</html>

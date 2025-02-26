@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results Page</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div class="container results-container">
+    <p id="resultPercentage"></p>
+    <p id="resultText">Loading results...</p>
+    <p id="consequencesText"></p>
+  </div>
+  <div class="container shop-again-container" id="shopAgainContainer" style="visibility:hidden">
+    <p id="shopAgainText">Thank you for shopping</p>
+    <button id="shopAgainBtn">Click to shop again</button>
+  </div>
+  <script>
+    // Retrieve the current question from localStorage.
+    const currentQuestion = localStorage.getItem('selectedQuestion');
+    // const currentAnswer = localStorage.getItem('selectedAnswer');
+    const currentAnswer = 'cereal';
+
+    // --- SheetDB Integration ---
+    const sheetDBEndpoint = 'https://sheetdb.io/api/v1/03wai2kknq2nf';
+
+    // Fetch all responses for the current question.
+    function fetchResults(question) {
+      // Using SheetDB’s search functionality to filter by the question text.
+      const encodedQuestion = encodeURIComponent(question);
+      const url = `${sheetDBEndpoint}/search?question=${encodedQuestion}`;
+      return fetch(url).then(response => response.json());
+    }
+    // --- End SheetDB Integration ---
+
+    fetchResults(currentQuestion).then(responseData => {
+      let cerealCount = 0, indomieCount = 0;
+      responseData.data.forEach(item => {
+        if (item.answer.toLowerCase() === 'cereal') cerealCount++;
+        else if (item.answer.toLowerCase() === 'indomie') indomieCount++;
+      });
+      const total = cerealCount + indomieCount;
+      const cerealPercentage = total ? ((cerealCount / total) * 100).toFixed(1) : 0;
+      const indomiePercentage = total ? ((indomieCount / total) * 100).toFixed(1) : 0;
+      document.getElementById('resultPercentage').textContent =
+        currentAnswer === 'cereal' ? `${cerealPercentage}%` : `${indomiePercentage}%`;
+      document.getElementById('resultText').textContent =
+        `of people chose the same response as you!`;
+      document.getElementById('consequencesText').textContent =
+        `Here are the consequences of your actions`;
+      // document.getElementById('shopAgainContainer').style.visibility = 'visible';
+    }).catch(error => {
+      console.error('Error fetching results:', error);
+      document.getElementById('resultText').textContent = error.message;
+    });
+
+    // The "Shop Again" button returns the user to the landing page.
+    document.getElementById('shopAgainBtn').addEventListener('click', function() {
+      window.location.href = 'landing.html';
+    });
+  </script>
+</body>
+</html>
